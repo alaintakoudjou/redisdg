@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<Application>
+  <Description EdgeNumber="10" Name="appli" NodeNumber="8"/>
+  <CloneNumber>1</CloneNumber>
+  <Channels>
+    <WaitingTasks>waitingtasks6425</WaitingTasks>
+    <TasksToDo>taskstodo4777</TasksToDo>
+    <TasksInProgress>tasksinprogress2289</TasksInProgress>
+    <TasksToVerify>taskstoverify9103</TasksToVerify>
+    <FinishedTasks>finishedtasks5431</FinishedTasks>
+    <SelectVolunteers>selectvolunteers2777</SelectVolunteers>
+    <VolunteerWorkers>volunteerworkers8128</VolunteerWorkers>
+    <Emergency>emergency9318</Emergency>
+  </Channels>
+  <Servers>
+    <CoreServer>redis.lipn.univ-paris13.fr</CoreServer>
+    <DataServer>redis.lipn.univ-paris13.fr</DataServer>
+    <CodeServer>redis.lipn.univ-paris13.fr</CodeServer>
+  </Servers>
+  <Data>input.txt</Data>
+  <Code>split.sh</Code>
+  <Code>map.py</Code>
+  <Code>reduce.py</Code>
+  <Nodes>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="split.sh" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="input.txt" Predecessors="[]" nodeID="1">
+      <Inputs>
+        <Input>input.txt</Input>
+      </Inputs>
+      <Outputs>
+        <Output>INPUTaa</Output>
+        <Output>INPUTab</Output>
+        <Output>INPUTac</Output>
+        <Output>INPUTad</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="map.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="INPUTaa" Predecessors="[]" nodeID="2">
+      <Inputs>
+        <Input>INPUTaa</Input>
+      </Inputs>
+      <Outputs>
+        <Output>1.map</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="map.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="INPUTab" Predecessors="[]" nodeID="3">
+      <Inputs>
+        <Input>INPUTab</Input>
+      </Inputs>
+      <Outputs>
+        <Output>2.map</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="map.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="INPUTac" Predecessors="[]" nodeID="4">
+      <Inputs>
+        <Input>INPUTac</Input>
+      </Inputs>
+      <Outputs>
+        <Output>3.map</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="map.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="INPUTad" Predecessors="[]" nodeID="5">
+      <Inputs>
+        <Input>INPUTad</Input>
+      </Inputs>
+      <Outputs>
+        <Output>4.map</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="reduce.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="1.map" Predecessors="[]" nodeID="6">
+      <Inputs>
+        <Input>1.map</Input>
+        <Input>2.map</Input>
+      </Inputs>
+      <Outputs>
+        <Output>6.red</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="reduce.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="3.map" Predecessors="[]" nodeID="7">
+      <Inputs>
+        <Input>3.map</Input>
+        <Input>4.map</Input>
+      </Inputs>
+      <Outputs>
+        <Output>7.red</Output>
+      </Outputs>
+    </Node>
+    <Node AVAILABLE_DISK="120Go" AVAILABLE_RAM="20Go" CODE="reduce.py" CPU_MODEL="Intel Xeon" FREE_UNTIL="" SYST="Linux" PARAMETERS="6.red" Predecessors="[]" nodeID="8">
+      <Inputs>
+        <Input>6.red</Input>
+        <Input>7.red</Input>
+      </Inputs>
+      <Outputs>
+        <Output>8.red</Output>
+      </Outputs>
+    </Node>
+  </Nodes>
+  <Edge source="1" target="2"/>
+  <Edge source="1" target="3"/>
+  <Edge source="1" target="4"/>
+  <Edge source="1" target="5"/>
+  <Edge source="2" target="6"/>
+  <Edge source="3" target="6"/>
+  <Edge source="4" target="7"/>
+  <Edge source="5" target="7"/>
+  <Edge source="6" target="8"/>
+  <Edge source="7" target="8"/>
+</Application>
